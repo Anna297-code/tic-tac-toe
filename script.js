@@ -1,8 +1,7 @@
-// My object containing my 9 squares and changeSquare method
-// changeSquare checks if a square is empty or not
+// I have a GameBoardObject object with a gameboard array property. I also have a changeSquare method that checks if a square is empty and if it is empty, it puts the marker in the square and returns true, if it already has a marker it returns false.
 
 const GameBoardObject = {
-  gameboard: ["", "", "", "", "", "", "", "", ""],
+  gameboard: [" X", "", "", "O", "X", "", "", "", "O"],
 
   changeSquare: function (index, marker) {
     if (this.gameboard[index] === "") {
@@ -103,3 +102,22 @@ const gameController = {
 
   gameState: "playing",
 };
+
+function displayBoard() {
+  const container = document.querySelector("#container");
+
+  if (container.firstChild) {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  }
+
+  for (let index = 0; index < GameBoardObject.gameboard.length; index++) {
+    const square = document.createElement("div");
+    square.textContent = GameBoardObject.gameboard[index];
+    square.classList.add("square");
+    container.appendChild(square);
+  }
+}
+
+displayBoard();

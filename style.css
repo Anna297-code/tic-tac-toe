@@ -1,67 +1,40 @@
-const gameboard = {
-  board: ["", "", "", "", "", "", "", "", ""],
-
-  changeSquare(index, marker) {
-    if (this.board[index] === "") {
-      this.board[index] = marker;
-      return true;
-    } else {
-      return false;
-    }
-  },
-};
-
-function Player(name, marker) {
-  return { name, marker };
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-function GameController(player1, player2) {
-  let currentPlayer = player1;
-  let nextPlayer = player2;
-
-  return {
-    currentPlayer,
-    nextPlayer,
-
-    playRound(index) {
-      const attempt = gameboard.changeSquare(index, this.currentPlayer.marker);
-      if (attempt === true) {
-        currentPlayer = player2;
-        nextPlayer = player1;
-      }
-    },
-  };
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-const winningCombinations = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
+#container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 
-winningCombinations.forEach((combination) => {
-  const square0 = combination[0];
-  const square1 = combination[1];
-  const square2 = combination[2];
-  console.log(square0, square1, square2);
-});
+  aspect-ratio: 1/ 1;
+  width: 75%;
+  max-width: 500px;
+}
 
+.square {
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
- checkWinner: function () {
-    winningCombinations.forEach((combination) => {
-      const square0 = GameBoardObject.gameboard[combination[0]];
-      const square1 = GameBoardObject.gameboard[combination[1]];
-      const square2 = GameBoardObject.gameboard[combination[2]];
+  font-size: 70px;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-      if (square0 !== "" && square0 === square1 && square1 === square2) {
-        return square0;
-      } else {
-        return null;
-      }
-    });
-  },
+.square:hover {
+  background-color: rgb(171, 221, 255);
+  color: white;
+  border-color: rgb(206, 214, 221);
+}
