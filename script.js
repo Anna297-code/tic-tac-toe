@@ -1,7 +1,7 @@
 // I have a GameBoardObject object with a gameboard array property. I also have a changeSquare method that checks if a square is empty and if it is empty, it puts the marker in the square and returns true, if it already has a marker it returns false.
 
 const GameBoardObject = {
-  gameboard: [" X", "", "", "O", "X", "", "", "", "O"],
+  gameboard: ["", "", "", "", "", "", "", "", ""],
 
   changeSquare: function (index, marker) {
     if (this.gameboard[index] === "") {
@@ -55,6 +55,7 @@ const gameController = {
       } else {
         this.currentPlayer = player1;
       }
+      displayGameStatus();
     } else {
       return false;
     }
@@ -115,9 +116,30 @@ function displayBoard() {
   for (let index = 0; index < GameBoardObject.gameboard.length; index++) {
     const square = document.createElement("div");
     square.textContent = GameBoardObject.gameboard[index];
+    square.dataset.number = index;
     square.classList.add("square");
     container.appendChild(square);
+    square.addEventListener("click", (event) => {
+      indexOfClickedSquare = event.target.dataset.number;
+      gameController.playRound(indexOfClickedSquare);
+      displayBoard();
+    });
+  }
+}
+
+function displayGameStatus() {
+  const textBox = document.getElementById("game_status");
+
+  if (gameController.gameState === "playing") {
+    textBox.textContent = `${gameController.currentPlayer.name}'s turn`;
+  } else if (gameController.gameState === "X") {
+    textBox.textContent = `X Wins!`;
+  } else if (gameController.gameState === "O") {
+    textBox.textContent = `O Wins!`;
+  } else {
+    textBox.textContent = `It's a draw!`;
   }
 }
 
 displayBoard();
+displayGameStatus();
